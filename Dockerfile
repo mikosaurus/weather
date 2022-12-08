@@ -1,9 +1,11 @@
-FROM node:18-slim
-
-WORKDIR /app
-COPY ./ /app
-RUN npm install -g @angular/cli
+FROM node:lts-alpine as node
+WORKDIR /usr/src/app
+COPY package.json ./
 RUN npm install
-RUN npm run build
-EXPOSE 4200
-CMD ["node", "index.js"]
+COPY . .
+RUN npm run build --configuration=production
+
+FROM nginx:1.21.6-alpine
+COPY --from=node /usr/src/app/dist/ /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 3000
