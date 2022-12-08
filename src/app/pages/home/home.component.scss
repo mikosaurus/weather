@@ -1,0 +1,69 @@
+img {
+    height: 36px;
+    width: 36px;
+}
+
+.card {
+    background-color: white;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.card-header-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr 2fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        'updatedAt updatedAt updatedAt updatedAt'
+        'none nightHeader dayHeader eveningHeader';
+    gap: 4px;
+    padding-bottom: 8px;
+}
+
+
+.card-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr 2fr 2fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+        'date date date date'
+        'temp night day evening'
+        'wind night day evening';
+
+    gap: 4px;
+}
+
+.date {
+    grid-area: date
+}
+
+.temp {
+    grid-area: temp
+}
+
+.wind {
+    grid-area: wind
+}
+
+.night {
+    grid-area: night
+}
+
+.day {
+    grid-area: day
+}
+
+.evening {
+    grid-area: evening
+}
+
+.float-right {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+}
+
+.updatedAt {
+    grid-area: updatedAt;
+    font-size: 12px;
+}

@@ -1,0 +1,58 @@
+<ng-container
+  *ngIf="{
+    data: getDataObs() | async
+  } as $"
+>
+  <ng-container *ngIf="!$.data">
+    <mat-card class="mat-elevation-z2 card">
+      <mat-card-content class="card-grid"> Fetching data... </mat-card-content>
+    </mat-card>
+  </ng-container>
+  <ng-container *ngFor="let w of $.data?.weather_for_week; first as isFirst">
+    <mat-card class="mat-elevation-z2 card">
+      <mat-card-header class="card-header-grid" *ngIf="isFirst">
+        <div class="updatedAt">
+          <span>
+            last update: {{ $.data?.updated_at | date : "HH:mm:ss" }}
+          </span>
+        </div>
+        <div class="float-right nightHeader">Night</div>
+        <div class="float-right dayHeader">Day</div>
+        <div class="float-right eveningHeader">Evening</div>
+      </mat-card-header>
+      <mat-card-content class="card-grid">
+        <div class="date">{{ w.date | date : "EEEE d MMM." }}</div>
+        <div class="temp">
+          <span>{{ w.min_temp }}</span
+          ><span [innerHTML]="w.temp_unit"></span> /
+          <span>{{ w.max_temp }}</span
+          ><span [innerHTML]="w.temp_unit"></span>
+        </div>
+        <div class="wind">
+          <span>{{ w.max_wind }} {{ w.wind_unit }} </span>
+        </div>
+        <div class="night float-right">
+          <img
+            *ngIf="w.night_symbol_code"
+            alt="{{ w.night_symbol_code }}"
+            src="./assets/png/{{ w.night_symbol_code }}.png"
+          />
+        </div>
+        <div class="day float-right">
+          <img
+            *ngIf="w.day_symbol_code"
+            alt="{{ w.day_symbol_code }}"
+            src="./assets/png/{{ w.day_symbol_code }}.png"
+          />
+        </div>
+        <div class="evening float-right">
+          <img
+            *ngIf="w.evening_symbol_code"
+            alt="{{ w.evening_symbol_code }}"
+            src="./assets/png/{{ w.evening_symbol_code }}.png"
+          />
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</ng-container>
